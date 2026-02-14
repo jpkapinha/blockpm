@@ -32,7 +32,7 @@ export default function ProjectInputsPage({ params }: { params: { id: string } }
 
     useEffect(() => {
         if (projectId) {
-            fetchInputs();
+            void fetchInputs();
         }
     }, [projectId, fetchInputs]);
 

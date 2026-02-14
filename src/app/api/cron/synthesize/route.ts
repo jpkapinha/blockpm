@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/admin";
 import { synthesizeProjectState } from "@/lib/ai/agents/synthesis-agent";
 import { createNotification } from "@/lib/notifications";

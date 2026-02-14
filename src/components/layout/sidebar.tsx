@@ -110,6 +110,7 @@ interface SidebarContentProps {
     session: any;
     projects: { id: string; name: string; blockchain_focus: string | null }[];
     onNewProject: () => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     navItems: { href: string; label: string; icon: any }[];
     isMobile: boolean;
 }
