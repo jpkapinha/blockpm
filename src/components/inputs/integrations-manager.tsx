@@ -23,7 +23,7 @@ export function IntegrationsManager({ projectId }: IntegrationsManagerProps) {
 
     // TODO: Fetch existing integrations on mount
 
-    const handleSave = async (provider: "slack" | "telegram") => {
+    const handleSave = async () => {
         setIsSaving(true);
         setSaveStatus("idle");
 
@@ -84,7 +84,7 @@ export function IntegrationsManager({ projectId }: IntegrationsManagerProps) {
                     <Button
                         size="sm"
                         variant="secondary"
-                        onClick={() => handleSave("slack")}
+                        onClick={() => handleSave()}
                         disabled={isSaving}
                     >
                         {isSaving ? "Saving..." : "Save Configuration"}
@@ -130,7 +130,7 @@ export function IntegrationsManager({ projectId }: IntegrationsManagerProps) {
                     <Button
                         size="sm"
                         variant="secondary"
-                        onClick={() => handleSave("telegram")}
+                        onClick={() => handleSave()}
                         disabled={isSaving}
                     >
                         {isSaving ? "Saving..." : "Save Configuration"}

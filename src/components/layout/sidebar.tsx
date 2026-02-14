@@ -50,7 +50,82 @@ export function Sidebar({ projects, onNewProject }: SidebarProps) {
         },
     ];
 
-    const SidebarContent = () => (
+    return (
+        <>
+            {/* Mobile Trigger */}
+            <div className="md:hidden fixed top-4 left-4 z-50">
+                <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon" className="text-white bg-black/50 backdrop-blur-md border border-white/10">
+                            <Menu className="h-5 w-5" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="p-0 border-r border-white/10 bg-[#0a0a0f] w-[280px]">
+                        <SidebarContent
+                            pathname={pathname}
+                            collapsed={false}
+                            setCollapsed={() => { }}
+                            setMobileOpen={setMobileOpen}
+                            session={session}
+                            projects={projects}
+                            onNewProject={onNewProject}
+                            navItems={navItems}
+                            isMobile={true}
+                        />
+                    </SheetContent>
+                </Sheet>
+            </div>
+
+            {/* Desktop Sidebar */}
+            <aside
+                className={cn(
+                    "hidden md:flex flex-col h-screen border-r border-white/[0.06] bg-[#0a0a0f] transition-all duration-300",
+                    collapsed ? "w-[68px]" : "w-[260px]"
+                )}
+            >
+                <div className="flex-1 flex flex-col h-full">
+                    <SidebarContent
+                        pathname={pathname}
+                        collapsed={collapsed}
+                        setCollapsed={setCollapsed}
+                        setMobileOpen={setMobileOpen}
+                        session={session}
+                        projects={projects}
+                        onNewProject={onNewProject}
+                        navItems={navItems}
+                        isMobile={false}
+                    />
+                </div>
+            </aside>
+        </>
+    );
+}
+
+interface SidebarContentProps {
+    pathname: string;
+    collapsed: boolean;
+    setCollapsed: (collapsed: boolean) => void;
+    setMobileOpen: (open: boolean) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    session: any;
+    projects: { id: string; name: string; blockchain_focus: string | null }[];
+    onNewProject: () => void;
+    navItems: { href: string; label: string; icon: any }[];
+    isMobile: boolean;
+}
+
+function SidebarContent({
+    pathname,
+    collapsed,
+    setCollapsed,
+    setMobileOpen,
+    session,
+    projects,
+    onNewProject,
+    navItems,
+    isMobile
+}: SidebarContentProps) {
+    return (
         <div className="flex flex-col h-full bg-[#0a0a0f] border-r border-white/[0.06]">
             {/* Logo */}
             <div className="flex items-center justify-between px-4 py-4">
@@ -62,19 +137,21 @@ export function Sidebar({ projects, onNewProject }: SidebarProps) {
                         <span className="text-base font-semibold text-white">BlockPM</span>
                     )}
                 </Link>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 text-white/30 hover:text-red-400 hidden md:flex"
-                    onClick={() => setCollapsed(!collapsed)}
-                >
-                    <ChevronLeft
-                        className={cn(
-                            "h-4 w-4 transition-transform duration-300",
-                            collapsed && "rotate-180"
-                        )}
-                    />
-                </Button>
+                {!isMobile && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7 text-white/30 hover:text-white/60 hidden md:flex"
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        <ChevronLeft
+                            className={cn(
+                                "h-4 w-4 transition-transform duration-300",
+                                collapsed && "rotate-180"
+                            )}
+                        />
+                    </Button>
+                )}
             </div>
 
             <Separator />
@@ -206,35 +283,5 @@ export function Sidebar({ projects, onNewProject }: SidebarProps) {
                 </div>
             </div>
         </div>
-    );
-
-    return (
-        <>
-            {/* Mobile Trigger */}
-            <div className="md:hidden fixed top-4 left-4 z-50">
-                <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-                    <SheetTrigger asChild>
-                        <Button variant="ghost" size="icon" className="text-white bg-black/50 backdrop-blur-md border border-white/10">
-                            <Menu className="h-5 w-5" />
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="p-0 border-r border-white/10 bg-[#0a0a0f] w-[280px]">
-                        <SidebarContent />
-                    </SheetContent>
-                </Sheet>
-            </div>
-
-            {/* Desktop Sidebar */}
-            <aside
-                className={cn(
-                    "hidden md:flex flex-col h-screen border-r border-white/[0.06] bg-[#0a0a0f] transition-all duration-300",
-                    collapsed ? "w-[68px]" : "w-[260px]"
-                )}
-            >
-                <div className="flex-1 flex flex-col h-full">
-                    <SidebarContent />
-                </div>
-            </aside>
-        </>
     );
 }

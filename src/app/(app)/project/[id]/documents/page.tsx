@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Plus, Clock, CheckCircle, Loader2, FileText } from "lucide-react";
 
 export default function ProjectDocumentsPage({ params }: { params: { id: string } }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [documents, setDocuments] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isGenerating, setIsGenerating] = useState(false);

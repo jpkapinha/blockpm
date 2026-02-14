@@ -10,6 +10,7 @@ import { IntegrationsManager } from "@/components/inputs/integrations-manager";
 import { FileText, StickyNote, Database, Loader2, CheckCircle } from "lucide-react";
 
 export default function ProjectInputsPage({ params }: { params: { id: string } }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [inputs, setInputs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const supabase = createClient();
@@ -24,14 +25,15 @@ export default function ProjectInputsPage({ params }: { params: { id: string } }
             .order("created_at", { ascending: false });
 
         if (!error && data) {
-            // @ts-ignore
             setInputs(data);
         }
         setLoading(false);
     }, [projectId, supabase]);
 
     useEffect(() => {
-        if (projectId) fetchInputs();
+        if (projectId) {
+            fetchInputs();
+        }
     }, [projectId, fetchInputs]);
 
     return (

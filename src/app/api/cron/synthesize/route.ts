@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/admin";
 import { synthesizeProjectState } from "@/lib/ai/agents/synthesis-agent";
 import { createNotification } from "@/lib/notifications";
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
     // In production, you would verify a CRON_SECRET header here.
     // const authHeader = req.headers.get('authorization');
     // if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
